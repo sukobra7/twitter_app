@@ -119,15 +119,19 @@ const Auth: React.FC = () => {
   const signUpEmail = async () => {
     const authUser = await auth.createUserWithEmailAndPassword(email, password);
     let url = "";
+    debugger;
     if (avatarImage) {
+      debugger;
       const S =
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
       const N = 16;
       const randomChar = Array.from(crypto.getRandomValues(new Uint32Array(N)))
         .map((n) => S[n % S.length])
         .join("");
+      debugger;
       const fileName = randomChar + "_" + avatarImage.name;
       await storage.ref(`avatars/${fileName}`).put(avatarImage);
+      debugger;
       url = await storage.ref("avatars").child(fileName).getDownloadURL();
     }
     await authUser.user?.updateProfile({
